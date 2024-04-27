@@ -1,40 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
-// Função para verificar se o usuário está autenticado
-const checkIfUserIsAuthenticated = () => {
-     // Recupera o token de autenticação do localStorage
-     const userAuthToken = localStorage.getItem('token');
-
-    // Verifica se o token de autenticação existe e não está vazio
-    return !!userAuthToken;
-}
-
-// Componente de Inicial
 const Inicial = () => {
+    const [isAuthenticated, setIsAuthenticated] = useState(null);
+
     useEffect(() => {
-    console.log("Verificando autenticação...");
-    const isAuthenticated = checkIfUserIsAuthenticated();
-    console.log("Usuário autenticado:", isAuthenticated);
-  }, []);
+        console.log("Verificando autenticação...");
+        const token = localStorage.getItem('token');
+        console.log('Token armazenado:', token); // Log do token armazenado
+        setIsAuthenticated(!!token);
+        console.log("Usuário autenticado:", isAuthenticated);
+    }, []);
 
-    const isAuthenticated = checkIfUserIsAuthenticated();
+    // Se isAuthenticated for null, significa que ainda estamos verificando o token
+    if (isAuthenticated === null) {
+        return <div>Verificando autenticação...</div>;
+    }
 
+    // Se o usuário não estiver autenticado, redirecionar para a página de login
     if (!isAuthenticated) {
-        console.log("Usuário não autenticado, redirecionando para a página de login.");  
         return <Navigate to="/login" replace />;
     }
 
+    // Se o usuário estiver autenticado, renderize o componente Inicial
     console.log("Usuário autenticado, renderizando o componente Inicial.");
-    // Seu código aqui para renderizar o componente quando o usuário está autenticado
     return (
         <div>
             {/* Seu código aqui */}
             TESTE DE INICIAL - USUÁRIO AUTENTICADO
-
         </div>
     );
 }
-
 
 export default Inicial;

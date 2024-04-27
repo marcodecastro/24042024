@@ -13,7 +13,6 @@ const Login = () => {
   const handleSubmit = async (e) => {    
     e.preventDefault(); 
     try {
-      // Enviar os dados ao backend
       const response = await fetch('http://localhost:5000/login', {
         method: 'POST',
         headers: {
@@ -22,30 +21,26 @@ const Login = () => {
         body: JSON.stringify(form),
       });
 
-      const responseData = await response.json();
-
+    
       if (!response.ok) {
-        throw new Error(responseData.message || 'Erro desconhecido');
+        throw new Error('Erro ao fazer login');
       }
+
+      const responseData = await response.json();
 
       // Armazenar o token no localStorage
       localStorage.setItem('token', responseData.token);
 
       // Atualiza a página
-      window.location.reload();
+      //window.location.reload();
     
       // Redireciona para a página inicial
-      navigate('/Inicial');
+      navigate('/dashboard');
     } catch (error) {
       setError('Erro no cliente: ' + error.message);
       console.error('Erro no cliente:', error);
     }
   };
-
-
-
-
-
 
   return (
     <div>
