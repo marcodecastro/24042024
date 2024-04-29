@@ -18,7 +18,7 @@ const Home = ({ isLoggedIn }) => {
 
         <div className="home-links">
           {!isLoggedIn && <Link to="/login" className="home-link">Login</Link>}
-          {!isLoggedIn && <Link to="/cadastrar" className="home-link">Cadastrar</Link>}
+          {!isLoggedIn && <Link to="/cadastro" className="home-link">Cadastro</Link>}
         </div>
       </section>
     </div>

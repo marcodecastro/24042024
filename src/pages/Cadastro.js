@@ -1,14 +1,21 @@
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+//import { useForm } from 'react-hook-form';
+import mail from "../components/images/mail.png";
+import lock from "../components/images/lock.png";
+import profile from "../components/images/icone.jpg";
 
 const Cadastro = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState({});
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [errors, setErrors] = useState({})
     const [error, setError] = useState(null);
     const [cadastroSucesso, setCadastroSucesso] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     const validateForm = () => {
         let formErrors = {};
@@ -56,10 +63,14 @@ const Cadastro = () => {
         // Atualiza o estado apenas se a resposta for bem-sucedida
         setCadastroSucesso(true);
 
+        // Redireciona para a página de login
+        navigate('/login');
+
         // Limpa os campos do formulário
         setName('');
         setEmail('');
         setPassword('');
+        setConfirmPassword('');
     } catch (error) {
         setError(`Erro no cliente: ${error.message}`);
         console.error('Erro no cliente:', error);
@@ -77,53 +88,43 @@ const Cadastro = () => {
         }
       };
 
-  return (
-    <div>
-        <h1>Cadastro</h1>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {cadastroSucesso && <p style={{ color: 'green' }}>Cadastro realizado com sucesso!</p>}
-
+      return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="name">Nome</label>
-                <input
-                    type="text"
-                    id="name"
-                    value={name}
-                    onChange={(event) => setName(event.target.value)}
-                />
-                {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
+          <div className='main'>
+            <div className='sub-main'>
+              <div>
+                <h1>Cadastre-se</h1>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {cadastroSucesso && <p style={{ color: 'green' }}>Usuário cadastrado com sucesso.</p>}
+                <div>
+                  <img src={profile} alt="emial" className='email' />
+                  <input type="text" placeholder='Nome Completo' className='fill' value={name} onChange={(e) => setName(e.target.value)}/>
+                </div>
+                <div className='mail-id'>
+                  <img src={mail} alt="emial" className='email' />
+                  <input type="email" placeholder='Digite seu email' className='fill' value={email} onChange={(e) => setEmail(e.target.value)}/>
+                </div>
+                <div className='mail-id'>
+                  <img src={lock} alt="emial" className='email' />
+                  <input type="password" placeholder='Digite a Senha' className='fill' value={password} onChange={(e) => setPassword(e.target.value)}/>
+                </div>
+                <div className='mail-id'>
+                  <img src={lock} alt="emial" className='email' />
+                  <input type="password" placeholder='Confirme a Senha' className='fill' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
+                </div>
+               
+                <div className='login-btn'>
+                  <button type="submit">{isLoading ? 'Cadastrando...' : 'Cadastrar'}</button> 
+                </div>
+                <div className='reg-link'>
+                  <p>Se já tem uma conta</p><Link className='link' to='/Login'><li>Faça Login !!!</li></Link>
+                </div>
+              </div>
             </div>
-            <div>
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                />
-                {errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
-            </div>
-            <div>
-                <label htmlFor="password">Senha</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                />
-                {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
-            </div>
-            <button type="submit" disabled={isLoading}>
-                {isLoading ? 'Carregando...' : 'Cadastrar'}
-            </button>
+          </div>
         </form>
-        <div>
-            <p>Já tem uma conta? <a href="/login">Faça login</a></p>
-        </div>
-    </div>
-  )
-}
+      );
+    }
 
 export default Cadastro;
 

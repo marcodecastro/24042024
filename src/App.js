@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-
-// Componentes
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Abertura from './pages/Abertura';
 import Cadastro from './pages/Cadastro';
-import Casa from './pages/Casa';
+import Inicial from './pages/Inicial';
 
 // Função para verificar se o usuário está autenticado
 const isAuthenticated = () => {
@@ -39,23 +37,18 @@ const App = () => {
     <Router>
       <div>
         {/* Navegação */}
-        <nav>
-          <ul>
-            <li><a href="/">Home</a></li>
-            {isLoggedIn && <li><button onClick={handleLogout}>Logout</button></li>}
-          </ul>
-        </nav>
+       
 
         {/* Rotas */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login isLoggedIn={isLoggedIn} onLogin={handleLogin} />} />
-          <Route path="/cadastrar" element={<Cadastro />} />
+          <Route path="/cadastro" element={<Cadastro />} />
 
           {/* Rota protegida */}
           <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
           <Route path="/abertura" element={<PrivateRoute element={<Abertura />} />} />
-          <Route path="/casa" element={<PrivateRoute element={<Casa />} />} />
+          <Route path="/inicial" element={<PrivateRoute element={<Inicial />} />} />
         </Routes>
       </div>
     </Router>
