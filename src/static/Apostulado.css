@@ -1,0 +1,72 @@
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+}
+
+.field-container, .degree-container {
+    width: 100%;
+    max-width: 400px; /* Ajuste conforme necessário */
+}
+
+.field-container {
+    margin-bottom: 20px;
+}
+
+.degree-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.remove-button {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.add-degree-button {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.submit-button {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.button-container {
+    width: 100%;
+    margin-top: 25px;
+}
+
+/* Estilos para tablets */
+@media screen and (max-width: 768px) {
+    .form-container, .field-container, .degree-container {
+        max-width: 100%;
+    }
+}
+
+/* Estilos para celulares */
+@media screen and (max-width: 480px) {
+    .form-container, .field-container, .degree-container {
+        max-width: 100%;
+    }
+}
+  
+  
+
+  
+ 
+ 
+
+  
+

@@ -6,6 +6,10 @@ import Dashboard from './pages/Dashboard';
 import Abertura from './pages/Abertura';
 import Cadastro from './pages/Cadastro';
 import Inicial from './pages/Inicial';
+import Membro from './pages/Membro';
+
+
+import { UserProvider } from './UserContext.js';
 
 // Função para verificar se o usuário está autenticado
 const isAuthenticated = () => {
@@ -34,27 +38,27 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <div>
-        {/* Navegação */}
-       
-
-        {/* Rotas */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login isLoggedIn={isLoggedIn} onLogin={handleLogin} />} />
-          <Route path="/cadastro" element={<Cadastro />} />
-
-          {/* Rota protegida */}
-          <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
-          <Route path="/abertura" element={<PrivateRoute element={<Abertura />} />} />
-          <Route path="/inicial" element={<PrivateRoute element={<Inicial />} />} />
-        </Routes>
-      </div>
-    </Router>
+    <UserProvider>
+      <Router>
+        <div>
+          {/* Navegação */}
+          {/* Rotas */}
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login isLoggedIn={isLoggedIn} onLogin={handleLogin} />} />
+            <Route path="/cadastro" element={<Cadastro />} />
+            {/* Rota protegida */}
+            <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
+            <Route path="/abertura" element={<PrivateRoute element={<Abertura />} />} />
+            <Route path="/inicial" element={<PrivateRoute element={<Inicial />} />} />
+            <Route path="/membro" element={<PrivateRoute element={<Membro />} />} />
+            
+            
+          </Routes>
+        </div>
+      </Router>
+    </UserProvider>
   );
 };
 
 export default App;
-
-

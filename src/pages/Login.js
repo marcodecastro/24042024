@@ -1,4 +1,5 @@
-import React, { useState } from 'react'; // Importe o useContext
+import React, { useState, useContext } from 'react'; 
+import { UserContext } from '../UserContext.js';
 import { Link, useNavigate } from 'react-router-dom';
 import email from "../components/images/email.png";
 import lock from "../components/images/lock.png";
@@ -7,6 +8,12 @@ import '../static/Login.css';
 
 
 const Login = () => {
+  const { setUser } = useContext(UserContext);
+
+  const handleLogin = (loginData) => {
+    setUser(loginData);
+  };
+
   const [form, setForm] = useState({
     email: '',
     senha: '',
@@ -32,20 +39,21 @@ const Login = () => {
         },
         body: JSON.stringify(form),
       });
-
-
+  
       if (!response.ok) {
         throw new Error('Erro ao fazer login');
       }
-
+  
       const responseData = await response.json();
-
+  
       // Armazenar o token no localStorage
       localStorage.setItem('token', responseData.token);
-     
-
+  
+      // Definir o usuário no UserContext
+      handleLogin(responseData.user); 
+  
       // Redireciona para a página inicial
-      navigate('/casa');
+      navigate('/inicial');
     } catch (error) {
       setError('Erro no cliente: ' + error.message);
       console.error('Erro no cliente:', error);
